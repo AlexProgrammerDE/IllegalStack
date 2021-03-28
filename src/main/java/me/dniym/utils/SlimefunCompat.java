@@ -10,14 +10,15 @@ import org.bukkit.inventory.ItemStack;
 
 public class SlimefunCompat {
 
-	public static boolean isValid(Inventory inv) {
-		return true;
-	}
+    public static boolean isValid(Inventory inv) {
+        return true;
+    }
+
     public static boolean isValid(ItemStack is, Enchantment en) {
 
-    	if(is == null)
-    		return false;
-    	
+        if (is == null)
+            return false;
+
         if (IllegalStack.isSlimeFun()) {
             SlimefunItem sfi = SlimefunItem.getByItem(is);
             if (sfi != null) {

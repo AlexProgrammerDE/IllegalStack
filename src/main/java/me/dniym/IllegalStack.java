@@ -8,17 +8,11 @@ import me.dniym.timers.fTimer;
 import me.dniym.timers.sTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Vehicle;
-import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -61,8 +55,8 @@ public class IllegalStack extends JavaPlugin {
     private static boolean hasUnbreakable = false;
     private static boolean hasStorage = false;
     private static boolean hasIds = false;
-    
-    
+
+
     private static String version = "";
     private int ScanTimer = 0;
     private int SignTimer = 0;
@@ -129,8 +123,7 @@ public class IllegalStack extends JavaPlugin {
         }
 
 
-        
-		if (Protections.RemoveBooksNotMatchingCharset.isEnabled() && !fListener.getInstance().is113() && !fListener.is18()) {
+        if (Protections.RemoveBooksNotMatchingCharset.isEnabled() && !fListener.getInstance().is113() && !fListener.is18()) {
             if (plugin.SignTimer == 0)
                 plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new sTimer(), 10, 10);
         } else {
@@ -138,19 +131,17 @@ public class IllegalStack extends JavaPlugin {
                 plugin.getServer().getScheduler().cancelTask(plugin.SignTimer);
         }
 
-		if(fListener.getInstance().isAtLeast113()) 
-			new Listener113(IllegalStack.getPlugin());
-		
-		if(fListener.getInstance().isAtLeast114()) {
-			new Listener114(IllegalStack.getPlugin());
+        if (fListener.getInstance().isAtLeast113())
+            new Listener113(IllegalStack.getPlugin());
+
+        if (fListener.getInstance().isAtLeast114()) {
+            new Listener114(IllegalStack.getPlugin());
             System.out.println("ZombieVillagerTransformChance is set to " + Protections.ZombieVillagerTransformChance.getIntValue() + " *** Only really matters if the difficulty is set to HARD ***");
         }
 
         if ((fListener.getInstance().getIs116()))
-        	new Listener116(IllegalStack.getPlugin());
+            new Listener116(IllegalStack.getPlugin());
 
-
-         
 
     }
 
@@ -223,8 +214,9 @@ public class IllegalStack extends JavaPlugin {
     }
 
     public static boolean hasContainers() {
-    	return hasContainers;
+        return hasContainers;
     }
+
     public static boolean hasChestedAnimals() {
         return hasChestedAnimals;
     }
@@ -251,6 +243,72 @@ public class IllegalStack extends JavaPlugin {
 
     public static void setBlockMetaData(boolean blockMetaData) {
         IllegalStack.blockMetaData = blockMetaData;
+    }
+
+    public static boolean hasTraders() {
+        return hasTraders;
+    }
+
+    @NotNull
+    public static String getString(String version) {
+        if (version.equalsIgnoreCase("v1_14_R1")) {
+
+            version = IllegalStack.getPlugin().getServer().getVersion().split(" ")[2];
+
+            version = version.replace(")", "");
+            version = version.replace(".", "_");
+            String[] ver = version.split("_");
+            version = "v" + ver[0] + "_" + ver[1] + "_R" + ver[2];
+        }
+        return version;
+    }
+
+    public static boolean hasSmartInv() {
+        return SmartInv;
+    }
+
+    public static void setSmartInv(boolean smartInv) {
+        SmartInv = smartInv;
+    }
+
+    public static boolean hasSavageFac() {
+        return SavageFac;
+    }
+
+    public static void setSavageFac(boolean savageFac) {
+        SavageFac = savageFac;
+    }
+
+    public static boolean hasIds() {
+        return hasIds;
+    }
+
+    public static boolean hasShulkers() {
+        return hasShulkers;
+    }
+
+    public static boolean hasElytra() {
+        return hasElytra;
+    }
+
+    public static boolean isPaper() {
+        return isPaper;
+    }
+
+    public static boolean hasUnbreakable() {
+        return hasUnbreakable;
+    }
+
+    public static boolean isDisablePaperShulkerCheck() {
+        return disablePaperShulkerCheck;
+    }
+
+    public static void setDisablePaperShulkerCheck(boolean disablePaperShulkerCheck) {
+        IllegalStack.disablePaperShulkerCheck = disablePaperShulkerCheck;
+    }
+
+    public static boolean hasStorage() {
+        return hasStorage;
     }
 
     @Override
@@ -281,29 +339,29 @@ public class IllegalStack extends JavaPlugin {
         setIsPaper();
         setHasUnbreakable();
         setHasStorage();
-        
-        	try {
-            	Class.forName("com.github.stefvanschie.inventoryframework.Gui");
-            	System.out.println("Found a plugin using InventoryFramework, these items will be whitelisted while inside their GUI.");
-            	setHasFactionGUI(true);
-        	} catch (ClassNotFoundException ignored) {
+
+        try {
+            Class.forName("com.github.stefvanschie.inventoryframework.Gui");
+            System.out.println("Found a plugin using InventoryFramework, these items will be whitelisted while inside their GUI.");
+            setHasFactionGUI(true);
+        } catch (ClassNotFoundException ignored) {
         }
 
-        
-           ItemStack test = new ItemStack(Material.DIAMOND_AXE, 1);
-           ItemMeta im = test.getItemMeta();
-            
-            try {
-            	im.getAttributeModifiers();
-                setHasAttribAPI(true);
-            
 
-            } catch (NoSuchMethodError e) {
-                setHasAttribAPI(false);
-            
-            }
-        
-        
+        ItemStack test = new ItemStack(Material.DIAMOND_AXE, 1);
+        ItemMeta im = test.getItemMeta();
+
+        try {
+            im.getAttributeModifiers();
+            setHasAttribAPI(true);
+
+
+        } catch (NoSuchMethodError e) {
+            setHasAttribAPI(false);
+
+        }
+
+
         try {
             Class.forName("net.md_5.bungee.api.chat.ComponentBuilder");
             System.out.println("[IllegalStack] Chat Components found! Enabling clickable commands in /istack");
@@ -312,21 +370,21 @@ public class IllegalStack extends JavaPlugin {
         } catch (ClassNotFoundException e) {
             System.out.println("[IllegalStack] - Spigot chat components NOT found! disabling chat components.");
         }
-        
+
         try {
-        	if (Class.forName("fr.minuskube.inv.content.InventoryProvider") != null) 
-        		setSavageFac(true);
-        		
+            if (Class.forName("fr.minuskube.inv.content.InventoryProvider") != null)
+                setSavageFac(true);
+
         } catch (ClassNotFoundException e) {
-        	
+
         }
         try {
-        	if (Class.forName("fr.minuskube.inv.SmartInventory") != null) 
-        		setSmartInv(true);
-        
-        	
+            if (Class.forName("fr.minuskube.inv.SmartInventory") != null)
+                setSmartInv(true);
+
+
         } catch (ClassNotFoundException ignored) {
-        	
+
         }
 
         try {
@@ -363,20 +421,19 @@ public class IllegalStack extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new fListener(this), this);
 
-		if (!fListener.is18())
+        if (!fListener.is18())
             this.getServer().getPluginManager().registerEvents(new protListener(this), this);
 
         if (Protections.RemoveOverstackedItems.isEnabled() || Protections.PreventVibratingBlocks.isEnabled())
             ScanTimer = getServer().getScheduler().scheduleSyncRepeatingTask(this, new fTimer(this), Protections.ItemScanTimer.getIntValue(), Protections.ItemScanTimer.getIntValue());
 
-		if (Protections.RemoveBooksNotMatchingCharset.isEnabled() && !fListener.getInstance().is113() && !fListener.is18())
+        if (Protections.RemoveBooksNotMatchingCharset.isEnabled() && !fListener.getInstance().is113() && !fListener.is18())
             SignTimer = getServer().getScheduler().scheduleSyncRepeatingTask(this, new sTimer(), 10, 10);
-		if ((fListener.getInstance().isAtLeast113()))
-		{
-			new Listener113(this);
-		}
-		if (fListener.getInstance().isAtLeast114()) {
-			new Listener114(this);
+        if ((fListener.getInstance().isAtLeast113())) {
+            new Listener113(this);
+        }
+        if (fListener.getInstance().isAtLeast114()) {
+            new Listener114(this);
             System.out.println("ZombieVillagerTransformChance is set to " + Protections.ZombieVillagerTransformChance.getIntValue() + " *** Only really matters if the difficulty is set to HARD ***");
         }
 
@@ -395,77 +452,85 @@ public class IllegalStack extends JavaPlugin {
         if (this.getServer().getPluginManager().getPlugin("Slimefun") != null) {
             SlimeFun = true;
         }
-        
+
         if ((fListener.getInstance().getIs116()))
-        	new Listener116(IllegalStack.getPlugin());
+            new Listener116(IllegalStack.getPlugin());
     }
 
-    public static boolean hasTraders() {
-    	return hasTraders;
-    }
     private void setHasTraders() {
-    	try {
-    		Class.forName("import org.bukkit.entity.TraderLlama");
-    		hasTraders = true;
-    	} catch (ClassNotFoundException ignored) {
-    		
-    	}
+        try {
+            Class.forName("import org.bukkit.entity.TraderLlama");
+            hasTraders = true;
+        } catch (ClassNotFoundException ignored) {
+
+        }
     }
 
     private void setHasStorage() {
-    	Inventory inv = Bukkit.getServer().createInventory(null, 9);
-    	try {
-    	inv.getStorageContents();
-    	hasStorage = true;
-    	} catch (NoSuchMethodError ignored) { }
+        Inventory inv = Bukkit.getServer().createInventory(null, 9);
+        try {
+            inv.getStorageContents();
+            hasStorage = true;
+        } catch (NoSuchMethodError ignored) {
+        }
     }
+
     private void setHasUnbreakable() {
-    	ItemStack is = new ItemStack(Material.DIRT);
-    	ItemMeta im = is.getItemMeta();
-    	try {
-    		im.setUnbreakable(false);
-    		hasUnbreakable = true;
-    		
-    	} catch (NoSuchMethodError ignored) { }
-    	
-    }
-    private void setHasElytra() {
-    	
-    	Material m = Material.matchMaterial("Elytra");
-    	if(m != null)
-    		hasElytra = true;
+        ItemStack is = new ItemStack(Material.DIRT);
+        ItemMeta im = is.getItemMeta();
+        try {
+            im.setUnbreakable(false);
+            hasUnbreakable = true;
+
+        } catch (NoSuchMethodError ignored) {
+        }
 
     }
+
+    private void setHasElytra() {
+
+        Material m = Material.matchMaterial("Elytra");
+        if (m != null)
+            hasElytra = true;
+
+    }
+
     private void setIsPaper() {
-    	try {
-    		isPaper = Class.forName("com.destroystokyo.paper.VersionHistoryManager$VersionData") != null;
-    	} catch (ClassNotFoundException ignored) { }
+        try {
+            isPaper = Class.forName("com.destroystokyo.paper.VersionHistoryManager$VersionData") != null;
+        } catch (ClassNotFoundException ignored) {
+        }
     }
+
     private void setHasIds() {
-    	ItemStack is = new ItemStack(Material.BEDROCK);
-    	try {
-    		is.getType().getId();
-    		hasIds = true;
-    	} catch (IllegalArgumentException ignored) { }
+        ItemStack is = new ItemStack(Material.BEDROCK);
+        try {
+            is.getType().getId();
+            hasIds = true;
+        } catch (IllegalArgumentException ignored) {
+        }
     }
+
     private void setHasShulkers() {
-    	try {
-    		
-    		Class.forName("org.bukkit.block.ShulkerBox");
-    		hasShulkers=true;
-    	} catch (ClassNotFoundException ignored) {
-    		
-    	}
+        try {
+
+            Class.forName("org.bukkit.block.ShulkerBox");
+            hasShulkers = true;
+        } catch (ClassNotFoundException ignored) {
+
+        }
     }
+
     private void setHasContainers() {
-    	try {
-    		Class.forName("org.bukkit.block.Container");
-    		hasContainers = true;
-    		
-    	} catch (ClassNotFoundException ignored) {
-    		
-    	}
+        try {
+            Class.forName("org.bukkit.block.Container");
+            hasContainers = true;
+
+        } catch (ClassNotFoundException ignored) {
+
+        }
     }
+
     private void setHasChestedAnimals() {
 
         try {
@@ -530,7 +595,7 @@ public class IllegalStack extends JavaPlugin {
                 if (p != null && (added.get(key) instanceof Boolean))
                     p.setEnabled((Boolean) added.get(key));
                 if (p == Protections.AlsoPreventHeadInside && Material.matchMaterial("COMPOSTER") != null)
-                	Protections.AlsoPreventHeadInside.addTxtSet("COMPOSTER", null);
+                    Protections.AlsoPreventHeadInside.addTxtSet("COMPOSTER", null);
 
 
             }
@@ -701,26 +766,27 @@ public class IllegalStack extends JavaPlugin {
                 m = Material.matchMaterial(s);
             }
             int id = -1;
-    		int data = 0;
-    		
+            int data = 0;
+
             if (m != null)
                 whitelisted.append(s).append(" ");
             else {
-            	if(s.contains(":")) {
-            		String splStr[] = s.split(":");
-            		
-            		try {
-            			id = Integer.parseInt(splStr[0]);
-            			data = Integer.parseInt(splStr[1]);
-            		} catch (NumberFormatException ignored) {}
-            		
-            	}
-            	if(id != -1) 
-        			whitelisted.append(s).append(" ");
-        		 else 
-        			System.out.println("[IllegalStack] warning unable to find a material matching: " + s + " make sure it is a valid minecraft material type!");	
-        		
-                
+                if (s.contains(":")) {
+                    String[] splStr = s.split(":");
+
+                    try {
+                        id = Integer.parseInt(splStr[0]);
+                        data = Integer.parseInt(splStr[1]);
+                    } catch (NumberFormatException ignored) {
+                    }
+
+                }
+                if (id != -1)
+                    whitelisted.append(s).append(" ");
+                else
+                    System.out.println("[IllegalStack] warning unable to find a material matching: " + s + " make sure it is a valid minecraft material type!");
+
+
             }
         }
         if (whitelisted.length() > 0)
@@ -835,65 +901,4 @@ public class IllegalStack extends JavaPlugin {
         IllegalStack.version = version;
     }
 
-    @NotNull
-    public static String getString(String version) {
-        if (version.equalsIgnoreCase("v1_14_R1")) {
-
-            version = IllegalStack.getPlugin().getServer().getVersion().split(" ")[2];
-
-            version = version.replace(")", "");
-            version = version.replace(".", "_");
-            String[] ver = version.split("_");
-            version = "v" + ver[0] + "_" + ver[1] + "_R" + ver[2];
-        }
-        return version;
-    }
-
-	public static boolean hasSmartInv() {
-		return SmartInv;
-	}
-
-	public static void setSmartInv(boolean smartInv) {
-		SmartInv = smartInv;
-	}
-
-	public static boolean hasSavageFac() {
-		return SavageFac;
-	}
-
-	public static void setSavageFac(boolean savageFac) {
-		SavageFac = savageFac;
-	}
-
-	public static boolean hasIds() {
-		return hasIds;
-	}
-	
-	public static boolean hasShulkers() {
-		return hasShulkers;
-	}
-
-	public static boolean hasElytra() {
-		return hasElytra;
-	}
-
-	public static boolean isPaper() {
-		return isPaper;
-	}
-
-	public static boolean hasUnbreakable() {
-		return hasUnbreakable;
-	}
-	public static boolean isDisablePaperShulkerCheck() {
-		return disablePaperShulkerCheck;
-	}
-
-	public static void setDisablePaperShulkerCheck(boolean disablePaperShulkerCheck) {
-		IllegalStack.disablePaperShulkerCheck = disablePaperShulkerCheck;
-	}
-	
-	public static boolean hasStorage() {
-		return hasStorage;
-	}
-	
 }

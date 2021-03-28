@@ -9,7 +9,6 @@ import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -26,7 +25,7 @@ public class Logg {
     IllegalStack plugin;
     File file;
     Calendar date;
-    
+
     public Logg(IllegalStack plugin) {
         this.plugin = plugin;
         //System.out.println(plugin.getDataFolder()+"");
@@ -34,22 +33,23 @@ public class Logg {
             file = new File(plugin.getDataFolder() + "/OffenseLog.txt");
         date = Calendar.getInstance();
     }
-    
+
     @Deprecated
     public void append2(String message) {
-    	this.append(message, null);
-    
-    }
-    public void append(String message,Protections prot) {
+        this.append(message, null);
 
-    	if(prot != null) {
-    		IllegalStackLogEvent event = new IllegalStackLogEvent(message,prot);
-    		Bukkit.getPluginManager().callEvent(event);
-    	 
-    		if (event.isCancelled()) 
-    			return;
-    	}
-        
+    }
+
+    public void append(String message, Protections prot) {
+
+        if (prot != null) {
+            IllegalStackLogEvent event = new IllegalStackLogEvent(message, prot);
+            Bukkit.getPluginManager().callEvent(event);
+
+            if (event.isCancelled())
+                return;
+        }
+
         if (Protections.LogOffensesInSeparateFile.isEnabled()) {
             try {
                 System.out.println(Msg.PluginPrefix.getValue() + ChatColor.stripColor(message));
@@ -79,7 +79,7 @@ public class Logg {
                 }
         }
     }
-    
+
     private String getTeleportLoc(String message) {
         String[] words = message.split("@");
         //System.out.println("Msg is: " + message);
@@ -211,5 +211,5 @@ public class Logg {
                 }
         }
     }
-	
+
 }

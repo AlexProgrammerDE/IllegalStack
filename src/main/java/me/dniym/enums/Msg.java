@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-
 import org.bukkit.block.Container;
 import org.bukkit.block.DoubleChest;
 import org.bukkit.enchantments.Enchantment;
@@ -27,7 +26,7 @@ public enum Msg {
 
     PluginPrefix("[IllegalStack] -"),
     PluginTeleportText(ChatColor.GOLD + "Click to teleport here"),
-    
+
     ChestRemoved("removed a chest from a ~entity~ @"),
     ChestPrevented("prevented ~player~ from putting a chest on a ~entity~ @"),
     StaffChestPunishment("punished ~player~ for continuing to try to put chests on a creature.  A ~entity~ was removed, the player's inventory has been cleared and the player has been kicked from the server. @"),
@@ -38,7 +37,7 @@ public enum Msg {
     SignKickPlayerMsg("Placing signs with unicode characters is NOT permitted."),
     ShulkerClick("Removed a shulker box from inside another shulker box clicked by: ~name~"),
     ShulkerPlace("Removed a shulker box containing illegally stacked, or enchanted items on player ~player~  @"),
-    
+
     ItemFrameRemoveOnExtend("removed an item frame containing - ~contents~ on the back of a retracting piston @"),
     ItemFrameRemoveOnRetract("removed an item frame containing - ~contents~ pulled by a sticky piston"),
     PistonRetractionDupe("Stopped Rail/Carpet Dupe & Removed Piston @ ~removedblocks~"),
@@ -57,7 +56,7 @@ public enum Msg {
     ItemTypeRemovedPlayerOnDrop("~name~ attempted to drop a blacklisted item type: ~item~, it has been removed"),
     ItemTypeRemoved("Found a blacklisted item type: ~item~ in ~player~'s inventory, it has been removed"),
     SilkTouchBookBlocked("Stopped  ~name~ from breaking ~block~ using a silk touch book @"),
-    
+
     PistonHeadRemoval("A piston head was exploded.. removing an orphan piston base @"),
     IllegalStackLogin("Illegal stack of items removed: ~item~ (~amount~) from player: ~name~ at login."),
     IllegalStackOffhand("Removed an illegal stack of items from the off hand of ~name~, ~item~ ( ~amount~)"),
@@ -95,7 +94,7 @@ public enum Msg {
     PlayerEnchantBlocked("&cSorry ~name~ Enchanting this item is not permitted."),
     PlayerRepairBlocked("&cSorry ~name~ Repairing this item is not permitted."),
     PlayerSpawnEggBlock("&cSorry you can not use spawn eggs to change spawner types!"),
-    
+
     StaffMsgChangedSpawnerType("Player ~player~ used ~type~ to change a spawner type @"),
     StaffMsgEndGatewayVehicleRemoved("player ~name~ attempted to take a ~vehicle~ through an end gateway, it has been removed."),
     StaffMsgBlockedPortalLogin("broke a trapped nether portal @"),
@@ -164,15 +163,16 @@ public enum Msg {
 
     public String getValue(ItemStack is, Protections prot, Player plr, String source) {
         String val = value;
-        
+
         val = val.replace("~item~", is.getType().name());
         val = val.replace("~protection~", prot.getDisplayName());
         val = val.replace("~source~", source);
-        if(plr != null)
-        	val = plr.getName() + " - " + val;
-        
+        if (plr != null)
+            val = plr.getName() + " - " + val;
+
         return ChatColor.translateAlternateColorCodes('&', val);
     }
+
     public String getValue(Player player, String displayName) {
         String val = value;
         val = val.replace("@", "@ " + player.getLocation().toString());
@@ -200,6 +200,7 @@ public enum Msg {
         val = val.replace("@", "@ " + loc.toString());
         return val;
     }
+
     public String getValue(String source, Location loc) {
         String val = value;
 
@@ -207,6 +208,7 @@ public enum Msg {
         val = val.replace("@", "@ " + loc.toString());
         return val;
     }
+
     public String getValue(Player p, Integer count, Location loc) {
         String val = value;
 
@@ -228,68 +230,70 @@ public enum Msg {
     }
 
     public String getValue(Entity ent1, Entity ent2) {
-    	String val = value;
-    	
-    	if(ent1 instanceof Player)
-    		val = val.replace("~entity~", ((Player)ent1).getName());
-    	else
-    		val = val.replace("~entity~", ent1.getType().name());
-    	
+        String val = value;
+
+        if (ent1 instanceof Player)
+            val = val.replace("~entity~", ent1.getName());
+        else
+            val = val.replace("~entity~", ent1.getType().name());
+
         val = val.replace("~vehicle~", ent2.getType().name());
         val = val.replace("@", "@ " + ent1.getLocation().toString());
         return val;
     }
+
     public String getValue(Location loc, ItemStack is) {
-    	String val = value;
-    	
+        String val = value;
+
 
         val = val.replace("@", "@ " + loc.toString());
         val = val.replace("~item~", is.getType().name());
         val = val.replace("~amount~", "" + is.getAmount());
         return ChatColor.translateAlternateColorCodes('&', val);
     }
+
     public String getValue(Object obj, ItemStack is, Enchantment en) {
-    	
-    	
+
+
         String val = value;
 
         val = val.replace("~item~", is.getType().name());
-        if(en == null)
-        	val = val.replace("~enchant~", "");
+        if (en == null)
+            val = val.replace("~enchant~", "");
         else {
-        	val = val.replace("~enchant~", en.getName());
+            val = val.replace("~enchant~", en.getName());
             val = val.replace("~lvl~", is.getEnchantmentLevel(en) + "");
         }
-        if(obj instanceof BlockState) 
-        	val = val.replace("~player~", "a " + ((BlockState)obj).getBlock().getType().name() + "'s inventory");
-        else if(obj instanceof Player)
-        	val = val.replace("~player~", ((Player)obj).getName());
-        else if(obj instanceof Inventory)
-        	val = val.replace("~player~", ((Inventory)obj).getType().name() + " - ");
-        else if(obj instanceof Location)
-        	val = val.replace("~player~", "a shulker box");
-        else if(obj instanceof Container)
-        	val = val.replace("~player~", ((Container)obj).getType().name());
-        
-        Location loc = null;
-        
-        if(obj instanceof BlockState)
-        	loc = ((BlockState)obj).getLocation();
-        if(obj instanceof Player)
-        	loc = ((Player)obj).getLocation();
-        else if (obj instanceof Block)
-        	loc = ((Block)obj).getLocation();
+        if (obj instanceof BlockState)
+            val = val.replace("~player~", "a " + ((BlockState) obj).getBlock().getType().name() + "'s inventory");
+        else if (obj instanceof Player)
+            val = val.replace("~player~", ((Player) obj).getName());
         else if (obj instanceof Inventory)
-        	loc = ((Inventory)obj).getLocation();
+            val = val.replace("~player~", ((Inventory) obj).getType().name() + " - ");
         else if (obj instanceof Location)
-        	loc = ((Location)obj);
-        else if(obj instanceof Container)
-        	loc = ((Container)obj).getLocation();
-        
-        if(loc != null)
-        	val = val.replace("@", "@ " + loc.toString());
+            val = val.replace("~player~", "a shulker box");
+        else if (obj instanceof Container)
+            val = val.replace("~player~", ((Container) obj).getType().name());
+
+        Location loc = null;
+
+        if (obj instanceof BlockState)
+            loc = ((BlockState) obj).getLocation();
+        if (obj instanceof Player)
+            loc = ((Player) obj).getLocation();
+        else if (obj instanceof Block)
+            loc = ((Block) obj).getLocation();
+        else if (obj instanceof Inventory)
+            loc = ((Inventory) obj).getLocation();
+        else if (obj instanceof Location)
+            loc = ((Location) obj);
+        else if (obj instanceof Container)
+            loc = ((Container) obj).getLocation();
+
+        if (loc != null)
+            val = val.replace("@", "@ " + loc.toString());
         else
-        	val = val.replace("@", "@ UNKNOWN ");
+            val = val.replace("@", "@ UNKNOWN ");
         return val;
 
     }
@@ -315,20 +319,20 @@ public enum Msg {
         return ChatColor.translateAlternateColorCodes('&', val);
     }
 
-    
+
     public String getValue(Object obj, ItemStack is) {
-    	if(obj instanceof Inventory) {
-    		if(((Inventory)obj).getHolder() instanceof Player) {
-    			Inventory inv = (Inventory)obj;
-    			return getValue((Player)inv.getHolder(),is);
-    		} else 
-    			return getValue(((Inventory)obj).getLocation(), is);
-    	} else if(obj instanceof Container)
-    		return getValue(((Container)obj),is);
-    	System.out.println("An unknown object " + obj.toString() + " was passed to illegalstack during a logging operation please report this to dNiym at the spigot forums or on the IllegalStack Discord.");
-    	return "???";
+        if (obj instanceof Inventory) {
+            if (((Inventory) obj).getHolder() instanceof Player) {
+                Inventory inv = (Inventory) obj;
+                return getValue((Player) inv.getHolder(), is);
+            } else
+                return getValue(((Inventory) obj).getLocation(), is);
+        } else if (obj instanceof Container)
+            return getValue(((Container) obj), is);
+        System.out.println("An unknown object " + obj.toString() + " was passed to illegalstack during a logging operation please report this to dNiym at the spigot forums or on the IllegalStack Discord.");
+        return "???";
     }
-    
+
     public String getValue(Container c, ItemStack is) {
         String val = value;
 
@@ -351,31 +355,32 @@ public enum Msg {
     }
 
     public String getValue(ItemStack is, Object obj, StringBuilder list) {
-    	String val = value;
-    	
-    	if(obj instanceof Player) {
-    		val = val.replace("@", "@ " + ((Player)obj).getLocation().toString());
-    		val = val.replace("~name~", ((Player)obj).getName());
-    	} else if(obj instanceof Inventory) {
-    		Inventory inv = null;
-    		inv = (Inventory) obj;
-    		if(inv.getHolder() instanceof Container)
-        		val = val.replace("~name~", ((Container)inv.getHolder()).getLocation().getBlock().getType().name() + " @" + ((Container)inv.getHolder()).getLocation().toString());
-    		else if(inv.getHolder() instanceof DoubleChest)
-    			val = val.replace("~name~", ((DoubleChest)inv.getHolder()).getLocation().getBlock().getType().name() + " @" + inv.getLocation().toString());
-    		else if(inv.getHolder() instanceof Player)
-    			val = val.replace("~name~", ((Player)inv.getHolder()).getName() + " @" + inv.getLocation().toString());
-        	else
-        		System.out.println("[IllegalStack] was supposed to send a message detailing an inventory but could not determine its type!  Please contact dNiym at the IllegalStack discord or on Spigot with this message -> " + obj.toString());
-    	}
-    		
-    	
+        String val = value;
+
+        if (obj instanceof Player) {
+            val = val.replace("@", "@ " + ((Player) obj).getLocation().toString());
+            val = val.replace("~name~", ((Player) obj).getName());
+        } else if (obj instanceof Inventory) {
+            Inventory inv = null;
+            inv = (Inventory) obj;
+            if (inv.getHolder() instanceof Container)
+                val = val.replace("~name~", ((Container) inv.getHolder()).getLocation().getBlock().getType().name() + " @" + ((Container) inv.getHolder()).getLocation().toString());
+            else if (inv.getHolder() instanceof DoubleChest)
+                val = val.replace("~name~", ((DoubleChest) inv.getHolder()).getLocation().getBlock().getType().name() + " @" + inv.getLocation().toString());
+            else if (inv.getHolder() instanceof Player)
+                val = val.replace("~name~", ((Player) inv.getHolder()).getName() + " @" + inv.getLocation().toString());
+            else
+                System.out.println("[IllegalStack] was supposed to send a message detailing an inventory but could not determine its type!  Please contact dNiym at the IllegalStack discord or on Spigot with this message -> " + obj.toString());
+        }
+
+
         val = val.replace("~item~", is.getType().name());
         val = val.replace("~amount~", "" + is.getAmount());
         val = val.replace("~attributes~", list);
 
         return ChatColor.translateAlternateColorCodes('&', val);
     }
+
     public String getValue(Player p, ItemStack is, String list) {
         String val = value;
 

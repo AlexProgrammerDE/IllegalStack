@@ -24,7 +24,7 @@ public class protListener implements Listener {
         this.plugin = illegalStack;
     }
 
-        @EventHandler
+    @EventHandler
     public void onPlayerSwapHandItemsEvent(PlayerSwapHandItemsEvent e) {
 
         if (!Protections.PreventItemSwapLagExploit.isEnabled())
@@ -49,6 +49,7 @@ public class protListener implements Listener {
             }
             new BukkitRunnable() {
                 final Player player = p;
+
                 @Override
                 public void run() {
                     if (player.getLocation().getBlockY() > 255 && player.isGliding()) {

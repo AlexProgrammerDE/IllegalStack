@@ -53,20 +53,20 @@ public class pLisbListener {
         }
 
         if (Protections.DisableChestsOnMobs.isEnabled()) {
-        	
+
             ProtocolLibrary.getProtocolManager().addPacketListener(
                     new PacketAdapter(plugin, PacketType.Play.Client.USE_ENTITY) {
-                    	
+
                         @Override
                         public void onPacketReceiving(PacketEvent event) {
-                        	
-                        	
-                        	if(event.getPacket().getIntegers().read(0) <= 0) {
-                        		System.out.println(event.getPlayer().getName() + " tried to interact with entity with an invalid id: " + event.getPacket().getIntegers().read(0) + " if this happens often please investigate what the player is doing and message dNiym on spigot or the IllegalStack discord.");
-                        		event.setCancelled(true);
-                        		return;
-                        	}
-                        	
+
+
+                            if (event.getPacket().getIntegers().read(0) <= 0) {
+                                System.out.println(event.getPlayer().getName() + " tried to interact with entity with an invalid id: " + event.getPacket().getIntegers().read(0) + " if this happens often please investigate what the player is doing and message dNiym on spigot or the IllegalStack discord.");
+                                event.setCancelled(true);
+                                return;
+                            }
+
                             if (IllegalStack.hasChestedAnimals()) {
                                 try {
                                     Entity entity = event.getPacket().getEntityModifier(event.getPlayer().getWorld()).read(0);
@@ -92,7 +92,7 @@ public class pLisbListener {
                                     Entity entity = event.getPacket().getEntityModifier(event.getPlayer().getWorld()).read(0);
                                     if (entity instanceof Horse && ((Horse) entity).isTamed()) {
                                         ItemStack is = event.getPlayer().getInventory().getItemInHand();
-                                        if (!fListener.getInstance().is18() && (is == null || is.getType() != Material.CHEST))
+                                        if (!fListener.is18() && (is == null || is.getType() != Material.CHEST))
                                             is = event.getPlayer().getInventory().getItemInOffHand();
                                         if (is == null || is.getType() != Material.CHEST)
                                             return;

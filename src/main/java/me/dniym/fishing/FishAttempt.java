@@ -18,7 +18,7 @@ public class FishAttempt {
     double range = 0.3;
     private int count = 0;
     private int sameSpotCount = 0;
-    private List<Location> BLACKLIST = new ArrayList<>();
+    private final List<Location> BLACKLIST = new ArrayList<>();
 
     public FishAttempt(Player p) {
         attempts.put(p.getUniqueId(), this);

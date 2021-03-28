@@ -1,26 +1,16 @@
 package me.dniym.utils;
 
 
+import de.tr7zw.nbtapi.*;
 import me.dniym.enums.Msg;
 import me.dniym.enums.Protections;
 import me.dniym.listeners.fListener;
-
-
-import java.util.ArrayList;
-
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
-
-import de.tr7zw.nbtapi.NBTCompound;
-import de.tr7zw.nbtapi.NBTCompoundList;
-import de.tr7zw.nbtapi.NBTEntity;
-import de.tr7zw.nbtapi.NBTItem;
-import de.tr7zw.nbtapi.NBTListCompound;
-import java.util.List;
 
 public class NBTApiStuff {
 
@@ -60,7 +50,7 @@ public class NBTApiStuff {
     public static void getEntityTags(Entity ent) {
 
         NBTEntity nbtent = new NBTEntity(ent);
-        
+
 
         NamespacedKey key = new NamespacedKey(NamespacedKey.MINECRAFT, "gossips");
         PersistentDataContainer data = ent.getPersistentDataContainer();
@@ -136,92 +126,89 @@ public class NBTApiStuff {
     }
 
     public static void hasBadCustomDataOnArmorLegacy(Player p) {
-    	ItemStack is = p.getInventory().getHelmet();
-    	String slot = "";
-    	if(hasBadCustomDataLegacy(p.getInventory().getBoots())) {
-    		slot = "boots";
-    		p.getInventory().setBoots(new ItemStack(Material.AIR));
-    	} else if(hasBadCustomDataLegacy(p.getInventory().getChestplate())) {
-    		slot = "chestplate";
-    		p.getInventory().setChestplate(new ItemStack(Material.AIR));
-    	} else if(hasBadCustomDataLegacy(p.getInventory().getHelmet())) {
-    		p.getInventory().setHelmet(new ItemStack(Material.AIR));
-    		slot = "helmet";
-    	} else if(hasBadCustomDataLegacy(p.getInventory().getLeggings())) {
-    		p.getInventory().setLeggings(new ItemStack(Material.AIR));
-    		slot = "leggings";
-    	}
-    	
-    	
-    	if(!slot.isEmpty())
-    	{
-    		fListener.getLog().append2(Msg.CustomAttribsRemoved2.getValue(p,is, slot));	
-    	}
-    	
-    	
-    			
-    			
-    		
-    				
+        ItemStack is = p.getInventory().getHelmet();
+        String slot = "";
+        if (hasBadCustomDataLegacy(p.getInventory().getBoots())) {
+            slot = "boots";
+            p.getInventory().setBoots(new ItemStack(Material.AIR));
+        } else if (hasBadCustomDataLegacy(p.getInventory().getChestplate())) {
+            slot = "chestplate";
+            p.getInventory().setChestplate(new ItemStack(Material.AIR));
+        } else if (hasBadCustomDataLegacy(p.getInventory().getHelmet())) {
+            p.getInventory().setHelmet(new ItemStack(Material.AIR));
+            slot = "helmet";
+        } else if (hasBadCustomDataLegacy(p.getInventory().getLeggings())) {
+            p.getInventory().setLeggings(new ItemStack(Material.AIR));
+            slot = "leggings";
+        }
+
+
+        if (!slot.isEmpty()) {
+            fListener.getLog().append2(Msg.CustomAttribsRemoved2.getValue(p, is, slot));
+        }
+
+
     }
-    
+
     public static boolean hasBadCustomDataLegacy(ItemStack is) {
-    	if(is == null)
-    		return false;
-    	
+        if (is == null)
+            return false;
+
         NBTItem nbti = new NBTItem(is);
         NBTCompoundList itemTag = nbti.getCompoundList("AttributeModifiers");
-        
+
         return (itemTag != null && itemTag.size() > 0);
-    	
+
     }
+
     public static boolean checkForBadCustomDataLegacy(ItemStack is, Object obj) {
-    	boolean helmet = false;
+        boolean helmet = false;
         NBTItem nbti = new NBTItem(is);
         NBTCompoundList itemTag = nbti.getCompoundList("AttributeModifiers");
         if (itemTag == null) {
             return false;
         }
-        
+
         if (itemTag.size() > 0) {
             itemTag.clear();
             nbti.setObject("AttributeModifiers", itemTag);
-            
-            
+
+
             StringBuilder attribs = new StringBuilder();
             attribs.append("Custom Attribute Data");
-            fListener.getLog().append(Msg.CustomAttribsRemoved3.getValue(is,obj,attribs),Protections.RemoveCustomAttributes);
-            
-            if(obj instanceof Player)
-            	((Player)obj).getInventory().remove(is);
+            fListener.getLog().append(Msg.CustomAttribsRemoved3.getValue(is, obj, attribs), Protections.RemoveCustomAttributes);
+
+            if (obj instanceof Player)
+                ((Player) obj).getInventory().remove(is);
             else
-            	System.out.println("The object type: " + obj.toString() + " is not accounted for in the legacy NBT Api check.. Please report this to dNiym at the IllegalStack discord or via spigot!");
-            	
+                System.out.println("The object type: " + obj.toString() + " is not accounted for in the legacy NBT Api check.. Please report this to dNiym at the IllegalStack discord or via spigot!");
+
             return true;
-           
+
         }
         return false;
     }
+
     public static void checkForBadCustomDataLegacy(ItemStack is, Player p, boolean sendToPlayer) {
-    	boolean helmet = false;
+        boolean helmet = false;
         NBTItem nbti = new NBTItem(is);
         NBTCompoundList itemTag = nbti.getCompoundList("AttributeModifiers");
         if (itemTag == null) {
             return;
         }
-        
+
         if (itemTag.size() > 0) {
             itemTag.clear();
             nbti.setObject("AttributeModifiers", itemTag);
-            
+
             if (sendToPlayer)
                 p.sendMessage(Msg.CustomAttribsRemoved.getValue(p, is, "Custom Attribute Data"));
             else
                 fListener.getLog().append2(Msg.CustomAttribsRemoved.getValue(p, is, "Custom Attribute Data"));
-            
+
             p.getInventory().remove(is);
-            
-           // p.getInventory().addItem(nbti.getItem());
+
+            // p.getInventory().addItem(nbti.getItem());
         }
     }
 

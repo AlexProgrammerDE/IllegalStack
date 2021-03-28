@@ -88,9 +88,9 @@ public class NBTStuff {
     }
 
     public static boolean hasSpigotNBT() {
-		return fListener.getInstance().is115() || fListener.getInstance().is114();
+        return fListener.getInstance().is115() || fListener.getInstance().is114();
 
-	}
+    }
 
     public static boolean isProCosmetics(ItemStack is, Protections prot) {
         if (IllegalStack.getProCosmetics() != null) {
@@ -138,34 +138,33 @@ public class NBTStuff {
 
 
     }
-    
+
     public static boolean hasBadCustomData(ItemStack is) {
 
         ItemMeta im = is.getItemMeta();
-       
+
         if (IllegalStack.isHasAttribAPI() && im.hasAttributeModifiers()) {
-        	
+
             return true;
-        } else if (IllegalStack.isNbtAPI()) 
-        	return NBTApiStuff.hasBadCustomDataLegacy(is);
-            
-        
-        
+        } else if (IllegalStack.isNbtAPI())
+            return NBTApiStuff.hasBadCustomDataLegacy(is);
+
+
         return false;
     }
 
     public static void checkForBadCustomData(ItemStack is, Player p, boolean sendToPlayer) {
 
         ItemMeta im = is.getItemMeta();
-       
+
         if (IllegalStack.isHasAttribAPI() && im.hasAttributeModifiers()) {
             StringBuilder attribs = new StringBuilder();
             HashSet<Attribute> toRemove = new HashSet<Attribute>();
             for (Attribute a : im.getAttributeModifiers().keySet()) {
-       //     	System.out.println("Attrib: " + a.name());
+                //     	System.out.println("Attrib: " + a.name());
                 for (AttributeModifier st : im.getAttributeModifiers(a)) {
                     attribs.append(" ").append(st.getName()).append(" value: ").append(st.getAmount());
-         //           System.out.println(attribs);
+                    //           System.out.println(attribs);
                 }
 
                 toRemove.add(a);
@@ -173,17 +172,17 @@ public class NBTStuff {
             if (sendToPlayer)
                 p.sendMessage(Msg.CustomAttribsRemoved.getValue(p, is, attribs.toString()));
             else
-                fListener.getLog().append(Msg.CustomAttribsRemoved.getValue(p, is, attribs.toString()),Protections.RemoveCustomAttributes);
+                fListener.getLog().append(Msg.CustomAttribsRemoved.getValue(p, is, attribs.toString()), Protections.RemoveCustomAttributes);
             for (Attribute remove : toRemove)
                 im.removeAttributeModifier(remove);
 
-            for(ItemFlag iFlag:im.getItemFlags())
-            	im.removeItemFlags(iFlag);
-            
+            for (ItemFlag iFlag : im.getItemFlags())
+                im.removeItemFlags(iFlag);
+
             is.setItemMeta(im);
 
         } else if (IllegalStack.isNbtAPI()) {
-        	NBTApiStuff.hasBadCustomDataOnArmorLegacy(p);
+            NBTApiStuff.hasBadCustomDataOnArmorLegacy(p);
             NBTApiStuff.checkForBadCustomDataLegacy(is, p, sendToPlayer);
 
         } else Msg.StaffNoNBTAPI.getValue(Protections.RemoveCustomAttributes.name());

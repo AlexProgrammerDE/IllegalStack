@@ -271,7 +271,7 @@ public class iStackCommand implements CommandExecutor {
         if (IllegalStack.isSpigot() && plr != null) {
             plr.spigot().sendMessage(SpigMethods.makeCategoryText(plr, category, show, catId));
         }
-            }
+    }
 
     private void sendProtection(CommandSender sender, Protections p, String serverVersion, int parentId, int catId) {
 

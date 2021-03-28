@@ -1,7 +1,6 @@
 package me.dniym.enums;
 
 
-
 import me.dniym.IllegalStack;
 import me.dniym.utils.MagicHook;
 import me.dniym.utils.NBTStuff;
@@ -64,8 +63,8 @@ public enum Protections {
 
     PreventIndirectTNTPowerDupe(21, true, "Prevent Tnt Dupers", "ALL", "Exploits.TNTDupe.PreventIndirectTNTPowerDupe", "Prevents tnt duping methods that exploit an indirect power bug that causes tnt to ignite and fall away / be launched but leave an unlit block of tnt behind.", "", 0, false),
     BlockPlayersAboveNether(29, true, "Block Players Above Nether", "ALL", "Exploits.Nether.BlockPlayersAboveNether", "Prevents players from teleporting / walking on top of the nether.", "", 0, false),
-    EnsureSafeTeleportLocationIfAboveCeiling(29,true,"Ensure Safe Teleport Below Ceiling", 29, "Exploits.Nether.EnsureSafeTeleportLocationIfAboveCeiling", "Makes sure the player wont be teleported back into solid netherrack or mid-air if teleport back down from above the nether ceiling.","",0,false),
-    BlockBuildingAboveNether(29, true, "Block Building Above Nether", 29, "Exploits.Nether.BlockBuildingAboveNether", "Prevents players from placing/breaking blocks when above the NehterYLevel setting.", "", 0,false),
+    EnsureSafeTeleportLocationIfAboveCeiling(29, true, "Ensure Safe Teleport Below Ceiling", 29, "Exploits.Nether.EnsureSafeTeleportLocationIfAboveCeiling", "Makes sure the player wont be teleported back into solid netherrack or mid-air if teleport back down from above the nether ceiling.", "", 0, false),
+    BlockBuildingAboveNether(29, true, "Block Building Above Nether", 29, "Exploits.Nether.BlockBuildingAboveNether", "Prevents players from placing/breaking blocks when above the NehterYLevel setting.", "", 0, false),
     KillPlayersBelowNether(29, false, "Kill Players Under Nether", 29, "Exploits.Nether.KillPlayersBelowNether", "Kills players who fly under the nether floor.", "", 0, false),
     NetherYLevel(29, 128, "Nether Y Level Override", 29, "Exploits.Nether.NetherYLevel", "Adjust the Y Level of the nether, useful for custom world generators.", "", 0, false),
     ExcludeNetherWorldFromHeightCheck(29, new String[]{}, "Exclude These Worlds From Height Check", 29, "Exploits.Nether.ExcludeNetherWorldFromHeightCheck", "Adding a nether world here will exclude it from the height check..  This should only ever be used if you have a nether world that has a non vanilla nether ceiling height, eg maybe bSkyblockNether's.  This will ONLY affect a nether world, no effect if the world is not a nether!", "", 0, false),
@@ -73,7 +72,7 @@ public enum Protections {
     RemoveBooksNotMatchingCharset(4, true, "Invalid Book Protection", "< 1.15", "Exploits.BookExploit.RemoveBooksNotMatchingCharset", "Automatically delete any written book that does not match the charset specified in the configuration (and if the author is NOT on the whitelist).  This exploit is used to create books full of garbage characters that will increase the size of a chunk past what the server will save.  It prevents a chunk from being properly saved and allows players to dupe.", "", 0, false),
     ValidCharset(4, "US-ASCII", "Valid Charset", 4, "Exploits.BookExploit.ValidCharset", "This is the currently set character set that IllegalStack compares sign and book text to, if you have book/sign protections enabled.   Any character that is NOT part of this charset is considered illegal and helps find exploited books and signs.  If you need to change this value a list of valid character sets can be found here: https://docs.oracle.com/javase/7/docs/technotes/guides/intl/encoding.doc.html", "", 0, false),
     BookAuthorWhitelist(4, new String[]{}, "Book Author Whitelist", 4, "Exploits.BookExploit.BookAuthorWhitelist", "Any player names added to this list will bypass all book creation restrictions.", "", 0, false),
-    
+
     PageCountThreshold(4, 5, "Page Count Threshold", 4, "Exploits.BookExploit.PageCountThreshold", "Number of pages containing Illegal Characters that can be found per book before it is flagged as illegal", "", 0, false),
     LimitNumberOfPages(4, 0, "Page Number Limit", 4, "Exploits.BookExploit.LimitNumberOfPages", "Maximum number of pages a book can contain, if this is set to any number above ZERO then the book will be removed if it has more than the value set.  Eg setting this to 5 will remove any book with 6 or more pages regardless of the book's contents.", "", 0, false),
     DestroyBadSignsonChunkLoad(5, false, "Destroy Bad Signs on Chunk Load", "ALL", "Exploits.SignExploit.DestroyBadSignsOnChunkLoad", "Check chunks when they're first loaded for signs that have non standard characters (usually from a hacked client) which are used to exploit the save state glitch like the book dupe, and to prevent players from being able to log in while in that chunk (sign banning)..   You should ONLY enable this protection if you know you have chunks with bad signs, as it will use resources checking every block for signs.", "", 0, false),
@@ -100,7 +99,7 @@ public enum Protections {
     PreventLootingExploit(50, true, "Prevent Looting Exploit", "ALL", "Exploits.Looting.PreventLootingExploit", "Prevents an exploit that allows players to use ranged weapons such as bows or crossbows to enable looting by holding a looting sword in their offhand.", "", 0, false),
     PreventLavaDupe(55, true, "Prevent Lava Dupe", "ALL", "Exploits.LavaDupe.PreventLavaDupe", "Prevents an exploit using lava and hoppers to dupe on multiple versions", "", 0, false),
     PreventRecordDupe(61, true, "Prevent Record Dupe", "ALL", "Exploits.RecordDupe", "Prevents an exploit using tnt, a skeleton and a pit full of creepers, used to mass farm records all at once.", "", 0, false),
-    
+
     //PacketAttackWindowClick(33,false,"Prevent Packet Crasher 1", "ALL", "Exploits.PacketAttack.PacketCrasher1", "Prevents Oversized packets and packet spam that  ")
     //MULTI VERSION EXPLOITS
     PreventRailDupe(8, true, "Destroy Rail / Carpet Dupers", "1.12/1.13/1.14/1.15/1.16", "Exploits.Other.PreventRailDupe", "Prevent redstone machines designed to dupe carpets and rails, these items are usually duped to provide infinite fuel for furnaces or to sell for in game money in shops.", "", 0, false),
@@ -109,7 +108,7 @@ public enum Protections {
 
     DisableChestsOnMobs(27, true, "Disable Chests on Mobs", "ALL", "Exploits.Other.DisableChestsOnMobs", "Prevents players from using or adding chests to Llamas, Donkeys, Horses etc.  Used to prevent players with hacked clients from duping useing these creatures.", "", 0, false),
     DisableRidingExploitableMobs(27, true, "Disable Riding/Taming of Mobs with chests", 27, "Exploits.Other.DisableRidingExploitableMobs", "Prevents players from being able to ride or tame a creature that can be equipped with a chest.", "", 0, false),
-    
+
     PunishForChestsOnMobs(27, false, "Violently Punish Repeat Offenders", 27, "Exploits.Other.PunishForChestsOnMobs", "Enabling this option will punish any player who attempts to place a chest on a chested animal, the animal will be destroyed, the player's inventory will be cleared and the player will be kicked from the server.", "", 0, false),
     PreventInvalidPotions(35, true, "Prevent Invalid Potions", "> 1.11", "Exploits.Other.PreventInvalidPotions", "Prevents non-opped players from possessing invalid / uncraftable potions.  Typically these are used for malicious purposes on creative servers such as potions of instant death", "", 0, false),
     PreventInfiniteElytraFlight(36, true, "Prevent Infinite Elytra Flight", "> 1.9", "Exploits.Other.PreventInvalidElytraFlight", "Prevents players from using a glitch that grants unlimited elytra flight time without rockets,  This exploit allows the player to ascend vertically starting at the max build height until they decide to start descending or their elytra breaks.", "", 0, false),
@@ -121,8 +120,8 @@ public enum Protections {
     PreventEndCrystalLagMachine(43, true, "Prevent End Crystal Lag Machine", "> 1.11", "Exploit.LagMachines.End Crystal", "Prevents pistons pushing end crystals into a huge pile, typically used to construct lag machines.", "", 0, false),
     PreventProjectileExploit(41, true, "Prevent Projectile Lag Exploit", "1.14", "Exploits.1_14_Exploits.Entities.PreventProjectileExploit", "Prevents Projectiles such as arrows from getting trapped inside bubble columns, creating lag when lots of these items are floating and falling constantly.", "", 0, false),
     PreventCommandsInBed(47, true, "Prevent Commands While In Bed", "ALL", "Exploits.Other.PreventCommandsInBed", "Prevent players from being able to use me.dniym.commands while in bed.  This has been linked to a serious exploit where not all events fire properly while a player is in bed, one huge exploit with this is players can get any item out of a GUI if they can open it while sleeping.", "", 0, false),
-    PreventBedExplosions(56, true, "Prevent Bed Explosions", "ALL", "Exploits.Other.PreventBedExplosions", "Prevent players from using beds in the end/nether as cheap explosives for PVP and destroying blocks.","",0,false),
-    PreventSpawnEggsOnSpawners(59, true, "Prevent Using Spawn Eggs On Spawners", "> 1.13", "Misc.Spawners.PreventSpawnEggsOnSpawners", "Prevent non opped players from being able to use spawn eggs on spawners to change the spawned creature type.","",0,false),
+    PreventBedExplosions(56, true, "Prevent Bed Explosions", "ALL", "Exploits.Other.PreventBedExplosions", "Prevent players from using beds in the end/nether as cheap explosives for PVP and destroying blocks.", "", 0, false),
+    PreventSpawnEggsOnSpawners(59, true, "Prevent Using Spawn Eggs On Spawners", "> 1.13", "Misc.Spawners.PreventSpawnEggsOnSpawners", "Prevent non opped players from being able to use spawn eggs on spawners to change the spawned creature type.", "", 0, false),
     //3rd Party Plugins
     BlockCMIShulkerStacking(10, true, "CMI Shulker Box Fix", "ALL", "Exploits.3rdParty.BlockCMIShulkerStacking", "The CMI plugin offers a feature that allows a shulker box to be opened without being placed.  Since this is not an actual shulker box it allows players to put shulkers inside shulkers without any exploit.  This setting prevents that behavior.", "", 0, false),
 
@@ -170,7 +169,7 @@ public enum Protections {
     RemoveAllRenamedItems(44, false, "Remove ALL renamed items", "ALL", "UserRequested.Obsure.Misc.RemoveAllRenamedItems", "Removes any item that has been renamed found on any user without the IllegalStack.RenameBypass permission.", "", 2, false),
     DisableBookWriting(53, false, "Disable ALL Book Editing", "ALL", "Exploits.BookExploit.DisableBookWriting", "Disable ALL player book writing, any book and quill that is edited (by a player not on the BookAuthorWhiteList) will be removed and a message sent to the player.  This option is off by default and was a user requested feature.", "", 2, false),
     PreventHeadInsideBlock(54, false, "PreventHeadInsideBlock", "ALL", "Exploits.MineCart.PreventHeadInsideBlocks", "Kicks a user off/out of a vehicle if they enter a block while inside a vehicle.", "", 2, false),
-    AlsoPreventHeadInside(54,new String[] {"COMPOSTER"},"Also Prevent Players Heads Inside", 54, "Exploits.Minecart.AlsoPreventHeadInside", "Breaks a block if a players head gets glitched into it, typically used for blocks that can be abused to xray.  EG leaves/composters","",2,false),
+    AlsoPreventHeadInside(54, new String[]{"COMPOSTER"}, "Also Prevent Players Heads Inside", 54, "Exploits.Minecart.AlsoPreventHeadInside", "Breaks a block if a players head gets glitched into it, typically used for blocks that can be abused to xray.  EG leaves/composters", "", 2, false),
     IgnoreAllShulkerPlaceChecks(58, false, "Ignore ALL Shulker Place Checks", "> 1.11", "UserRequested.Obscure.IgnoreAllShulkerPlaceChecks", "Forces the plugin to Ignore any shulker place event. This will disable removal of stacked items when a shulker is placed", "", 2, false),
     ;
 
@@ -425,8 +424,8 @@ public enum Protections {
         {
             return this.enabled;
         }
-		return this.relevant && this.enabled;
-	}
+        return this.relevant && this.enabled;
+    }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -475,9 +474,9 @@ public enum Protections {
         if (this.getVersion().isEmpty())
             return false; //must be a child node
 
-        
+
         if (this.getVersion().contains("< 1.15"))
-			return !serverVersion.contains("1.15") && !serverVersion.contains("1.16");
+            return !serverVersion.contains("1.15") && !serverVersion.contains("1.16");
 
         if (this.getVersion().equalsIgnoreCase("1.14.4") && !serverVersion.contains("1.14.R4"))
             return false;
@@ -490,7 +489,7 @@ public enum Protections {
 
         if (this.getVersion().equalsIgnoreCase("1.16") && serverVersion.contains("1.16"))
             return true;
-        
+
         if (this.getVersion().equalsIgnoreCase("1.15") && serverVersion.contains("1.15"))
             return true;
 
@@ -505,7 +504,7 @@ public enum Protections {
 
         if (this.getVersion().contains("1.16") && serverVersion.contains("1.16"))
             return true;
-        
+
         if (this.getVersion().contains("> 1.12"))
             if (serverVersion.contains("1.16") || serverVersion.contains("1.15") || serverVersion.contains("1.14") || serverVersion.contains("1.13") || serverVersion.contains("1.12"))
                 return true;
@@ -523,12 +522,11 @@ public enum Protections {
                 return true;
         if (this.getVersion().contains("1.13") && serverVersion.contains("1.13"))
             return true;
-        
+
         if (this.getVersion().contains("> 1.13"))
-        	return Material.matchMaterial("CAVE_AIR") != null;
+            return Material.matchMaterial("CAVE_AIR") != null;
         if (this.getVersion().contains("< 1.13"))
-        	return Material.matchMaterial("CAVE_AIR") == null;
-			
+            return Material.matchMaterial("CAVE_AIR") == null;
 
 
         return false;
@@ -540,25 +538,25 @@ public enum Protections {
             return false;
 
         if (this.getVersion().equals("1.16")) {
-        	if (serverVersion.contains("v1_16"))
-        		return true;
-        			
+            if (serverVersion.contains("v1_16"))
+                return true;
+
         }
         if (this.getVersion().equals("1.15")) {
             if (serverVersion.contains("v1_15_R1"))
                 return true;
             else return serverVersion.contains("v1_15_R2");
-		}
+        }
         if (this.getVersion().equals("1.14.4")) {
-			return serverVersion.contains("v1_14_R4");
+            return serverVersion.contains("v1_14_R4");
         }
 
 
         if (this.getVersion().equals("1.14.3")) {
-			return serverVersion.contains("v1_14_R3");
+            return serverVersion.contains("v1_14_R3");
         }
         if (serverVersion.contains("v1_16") && this.getVersion().contains("1.16"))
-        	return true;
+            return true;
         if (serverVersion.contains("v1_15") && this.getVersion().contains("1.15"))
             return true;
         if (serverVersion.contains("v1_14") && this.getVersion().contains("1.14"))
@@ -573,8 +571,8 @@ public enum Protections {
             return true;
         if (serverVersion.contains("v1_9") && this.getVersion().contains("1.9"))
             return true;
-		return serverVersion.contains("v1_8") && this.getVersion().contains("1.8");
-	}
+        return serverVersion.contains("v1_8") && this.getVersion().contains("1.8");
+    }
 
     public String getConfigPath() {
         return configPath;
@@ -678,8 +676,8 @@ public enum Protections {
 
     public boolean addTxtSet(String value, CommandSender sender) {
 
-    	if(sender != null)
-    		sender.sendMessage(ChatColor.GREEN + "Successfully added " + value + " to " + this.name());
+        if (sender != null)
+            sender.sendMessage(ChatColor.GREEN + "Successfully added " + value + " to " + this.name());
         this.getTxtSet().add(value.trim());
 
 
@@ -694,9 +692,9 @@ public enum Protections {
 
     public boolean validate(String value, CommandSender sender) {
 
-    	if (this == Protections.AlsoPreventHeadInside) 
-    		return addTxtSet(value,sender);
-    	
+        if (this == Protections.AlsoPreventHeadInside)
+            return addTxtSet(value, sender);
+
         if (this == Protections.BookAuthorWhitelist) {
             OfflinePlayer op = IllegalStack.getPlugin().getServer().getOfflinePlayer(value);
             if (op == null || !op.hasPlayedBefore()) {
@@ -806,24 +804,24 @@ public enum Protections {
             }
             Material m = Material.matchMaterial(value);
             if (m == null) {
-            	
-            	int id = -1;
-            	int data = 0;
-            	
-            	if(value.contains(":")) {
-            		String magicNumber[] = value.split(":");
-            		try {
-            			id = Integer.parseInt(magicNumber[0]);
-            			data = Integer.parseInt(magicNumber[1]);
-            			return addTxtSet(value,sender);
-            		} catch (NumberFormatException ignored){
-            			sender.sendMessage(ChatColor.DARK_RED + "When using data values, you must use the numeric value for both the itemid and the data.. EG:  397:3");
-            			return false;
-            		}
-            		
-            		
-            	}
-            	
+
+                int id = -1;
+                int data = 0;
+
+                if (value.contains(":")) {
+                    String[] magicNumber = value.split(":");
+                    try {
+                        id = Integer.parseInt(magicNumber[0]);
+                        data = Integer.parseInt(magicNumber[1]);
+                        return addTxtSet(value, sender);
+                    } catch (NumberFormatException ignored) {
+                        sender.sendMessage(ChatColor.DARK_RED + "When using data values, you must use the numeric value for both the itemid and the data.. EG:  397:3");
+                        return false;
+                    }
+
+
+                }
+
                 sender.sendMessage(ChatColor.DARK_RED + "Sorry! " + value + " does not appear to be a valid Item Type!");
                 return false;
             }
@@ -891,10 +889,10 @@ public enum Protections {
 
     public boolean isWhitelisted(String name, Player plr) {
 
-    	if (this == Protections.RemoveItemTypes && plr != null)
-    		if(plr.hasPermission("illegalstack.removeitemsoftypebypass"))
-    			return true;
-    	
+        if (this == Protections.RemoveItemTypes && plr != null)
+            if (plr.hasPermission("illegalstack.removeitemsoftypebypass"))
+                return true;
+
         if (this == Protections.AllowStack && plr != null)
             if (plr.hasPermission("illegalstack.overstack") || plr.isOp())
                 for (String s : Protections.AllowStackForGroup.getTxtSet())
@@ -935,39 +933,40 @@ public enum Protections {
     }
 
     public boolean isWhitelisted(Material type) {
-    	for (String s : this.getTxtSet()) {
+        for (String s : this.getTxtSet()) {
             Material m = Material.matchMaterial(s);
             if (m != null && type == m)
                 return true;
-        	
-            if(m == null && type.name().contains(s.trim()))
-            	return true;
+
+            if (m == null && type.name().contains(s.trim()))
+                return true;
         }
-    	return false;
+        return false;
     }
+
     public boolean isWhitelisted(ItemStack is) {
 
-    	if (this == Protections.RemoveItemTypes && IllegalStack.hasIds()) {  //check for magic number type values
-    		int id = -1;
-			int data = 0;
-			
-    		for(String s: this.getTxtSet()) {
-    			if(s.contains(":")) {
-    				String splStr[] = s.split(":");
-    				try {
-    					id = Integer.parseInt(splStr[0]);
-    					data = Integer.parseInt(splStr[1]);
-    				} catch (NumberFormatException ignored) {
-    		
-    				}
-    			}
-    			
-    		}
-    		if(id == is.getType().getId() && data == is.getDurability())
-    			return true;
-    		
-    	}
-        if (this == Protections.RemoveItemTypes && this.nukeApples && !is.getEnchantments().isEmpty() && is.getType() == Material.matchMaterial("GOLDEN_APPLE") )
+        if (this == Protections.RemoveItemTypes && IllegalStack.hasIds()) {  //check for magic number type values
+            int id = -1;
+            int data = 0;
+
+            for (String s : this.getTxtSet()) {
+                if (s.contains(":")) {
+                    String[] splStr = s.split(":");
+                    try {
+                        id = Integer.parseInt(splStr[0]);
+                        data = Integer.parseInt(splStr[1]);
+                    } catch (NumberFormatException ignored) {
+
+                    }
+                }
+
+            }
+            if (id == is.getType().getId() && data == is.getDurability())
+                return true;
+
+        }
+        if (this == Protections.RemoveItemTypes && this.nukeApples && !is.getEnchantments().isEmpty() && is.getType() == Material.matchMaterial("GOLDEN_APPLE"))
             return true;
 
         if (this != Protections.RemoveItemTypes && IllegalStack.isHasMagicPlugin() && MagicHook.isMagicItem(is))
@@ -986,8 +985,7 @@ public enum Protections {
         return false;
     }
 
-    
-    
+
     public boolean isThirdPartyInventory(InventoryView inv) {
 
         if (IllegalStack.getPlugin().getServer().getPluginManager().getPlugin("CraftingStore") != null) {
@@ -1003,7 +1001,7 @@ public enum Protections {
         }
 
         if (IllegalStack.getPlugin().getServer().getPluginManager().getPlugin("ShopGUIPlus") != null) {
-			return inv.getTopInventory().getHolder() instanceof OpenGui;
+            return inv.getTopInventory().getHolder() instanceof OpenGui;
         }
 
         return false;
@@ -1045,11 +1043,11 @@ public enum Protections {
             if (en != ench) //not a overriden enchantment
                 continue;
 
-			//level higher than override.
-			return lvl <= level;
+            //level higher than override.
+            return lvl <= level;
 
             //otherwise enchant is good
-		}
+        }
         return false;
     }
 
@@ -1061,16 +1059,14 @@ public enum Protections {
         this.nukeApples = nukeApples;
     }
 
-	public boolean isThirdPartyObject(Entity ent) {
-		
-		if(IllegalStack.getPlugin().getServer().getPluginManager().getPlugin("JetsMinions") != null)
-		{
-			Minion m = MinionAPI.getMinion(ent);
-			if(m != null)
-				return true;
-		}
-		return false;
-	}
+    public boolean isThirdPartyObject(Entity ent) {
+
+        if (IllegalStack.getPlugin().getServer().getPluginManager().getPlugin("JetsMinions") != null) {
+            Minion m = MinionAPI.getMinion(ent);
+            return m != null;
+        }
+        return false;
+    }
 
 
 }

@@ -16,12 +16,12 @@ import java.util.HashSet;
 
 public class sTimer implements Runnable {
 
-    private static long signCheck = 0L;
-    private static long chunkScan = 0L;
-    private static boolean scanChunks = false;
     private static final HashMap<Block, Player> signBlock = new HashMap<>();
     private static final HashSet<BlockState[]> entList = new HashSet<>();
     private static final HashSet<String> checkedChunks = new HashSet<>();
+    private static long signCheck = 0L;
+    private static long chunkScan = 0L;
+    private static boolean scanChunks = false;
 
     public sTimer() {
         if (Protections.DestroyBadSignsonChunkLoad.isEnabled())

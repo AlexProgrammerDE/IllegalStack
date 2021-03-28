@@ -10,7 +10,8 @@ public enum AttribLimit {
     private int maxValue;
     private int defaultValue;
 
-    AttribLimit(String name, int oldId, int maxValue) { }
+    AttribLimit(String name, int oldId, int maxValue) {
+    }
 
     public static AttribLimit get(String name) {
         return null;

@@ -10,21 +10,12 @@ import me.dniym.listeners.mcMMOListener;
 import me.dniym.utils.NBTStuff;
 import me.dniym.utils.SlimefunCompat;
 import me.dniym.utils.SpigMethods;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Boat;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Minecart;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -45,10 +36,10 @@ public class fTimer implements Runnable {
     private static HashMap<Player, Entity> punish = new HashMap<>();
     private final long scanDelay = 1;
     private final IllegalStack plugin;
+    private final boolean is1_8;
     private long nextScan;
     private long longScan;
     private long endScan = 0L;
-    private final boolean is1_8;
 
     public fTimer(IllegalStack illegalStack) {
         this.plugin = illegalStack;
@@ -99,7 +90,7 @@ public class fTimer implements Runnable {
             fListener.punishPlayer(p, punish.get(p));
         punish.clear();
 
-        
+
         if (Protections.BlockNonPlayersInEndPortal.isEnabled() && getDragon() != null && System.currentTimeMillis() > endScan) {
             endScan = System.currentTimeMillis() + 500L;
             if (getDragon().getEnvironment() == Environment.THE_END) {
@@ -205,12 +196,12 @@ public class fTimer implements Runnable {
                 if (SpigMethods.isNPC(p)) continue;
 
                 if (Protections.PreventHeadInsideBlock.isEnabled() && p.getGameMode() == GameMode.SURVIVAL) {
-                	Material type = p.getEyeLocation().getBlock().getType();
-                	if(Protections.AlsoPreventHeadInside.isWhitelisted(type)) {
-                		fListener.getLog().append(Msg.HeadInsideSolidBlock2.getValue(p,p.getEyeLocation().getBlock().getType().name()), Protections.PreventHeadInsideBlock);
-                		p.getEyeLocation().getBlock().breakNaturally();
-                		
-                	}
+                    Material type = p.getEyeLocation().getBlock().getType();
+                    if (Protections.AlsoPreventHeadInside.isWhitelisted(type)) {
+                        fListener.getLog().append(Msg.HeadInsideSolidBlock2.getValue(p, p.getEyeLocation().getBlock().getType().name()), Protections.PreventHeadInsideBlock);
+                        p.getEyeLocation().getBlock().breakNaturally();
+
+                    }
                 }
                 for (ItemStack is : p.getInventory().getContents()) {
                     if (is != null && !p.isOp()) {
@@ -480,7 +471,7 @@ public class fTimer implements Runnable {
                         if (!Protections.OnlyFunctionInWorlds.getTxtSet().isEmpty()) //world list isn't empty
                             if (!Protections.OnlyFunctionInWorlds.getTxtSet().contains(p.getWorld().getName())) //isn't in a checked world
                                 continue;
-                        
+
                         if (is != null && is.getEnchantments() != null && !is.getEnchantments().isEmpty()) {
                             if (Protections.AllowBypass.isEnabled() && p.hasPermission("illegalstack.enchantbypass"))
                                 continue;
@@ -559,8 +550,8 @@ public class fTimer implements Runnable {
             }
         }
     }
-    
-	public World getDragon() {
+
+    public World getDragon() {
         return dragon;
     }
 

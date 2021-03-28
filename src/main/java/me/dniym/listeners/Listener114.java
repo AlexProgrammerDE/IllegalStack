@@ -11,24 +11,12 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Waterlogged;
 import org.bukkit.enchantments.Enchantment;
-
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDispenseArmorEvent;
-import org.bukkit.entity.EnderPearl;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
-import org.bukkit.entity.Villager;
-import org.bukkit.entity.WanderingTrader;
-import org.bukkit.entity.ZombieVillager;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.EntityTransformEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.entity.VillagerReplenishTradeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -51,11 +39,11 @@ public class Listener114 implements Listener {
     HashMap<UUID, Long> lastTrade = new HashMap<>();
     HashSet<Material> consumables = new HashSet<>();
     IllegalStack plugin;
-    
+
     public Listener114(IllegalStack illegalStack) {
-    	plugin = illegalStack;
-    	//System.out.println("Registering 1.14 listener");
-        
+        plugin = illegalStack;
+        //System.out.println("Registering 1.14 listener");
+
         Material[] consume = new Material[]{Material.APPLE, Material.BAKED_POTATO, Material.BEETROOT, Material.BEETROOT_SOUP, Material.BREAD, Material.CARROT,
                 Material.CHORUS_FRUIT, Material.COOKED_CHICKEN, Material.COOKED_COD, Material.COOKED_MUTTON, Material.COOKED_PORKCHOP, Material.COOKED_SALMON,
                 Material.COOKED_RABBIT, Material.COOKIE, Material.DRIED_KELP, Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE, Material.GOLDEN_CARROT,
@@ -64,20 +52,20 @@ public class Listener114 implements Listener {
                 Material.SPIDER_EYE, Material.COOKED_BEEF, Material.SUSPICIOUS_STEW, Material.SWEET_BERRIES, Material.TROPICAL_FISH, Material.MILK_BUCKET,
                 Material.POTION};
         consumables.addAll(Arrays.asList(consume));
-        
-        plugin.getServer().getPluginManager().registerEvents(this,plugin);
+
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
     public void onChestDispense(BlockDispenseArmorEvent e) {
-    	//System.out.println("Checking dispense??");
-    	if (Protections.DisableChestsOnMobs.isEnabled()) {
-    		
-    		if(e.getItem().getType() == Material.CHEST) {
-    		//	System.out.println("Prevented a dispenser from spitting out a chest");
-    			e.setCancelled(true);
-    		}
-    	}
+        //System.out.println("Checking dispense??");
+        if (Protections.DisableChestsOnMobs.isEnabled()) {
+
+            if (e.getItem().getType() == Material.CHEST) {
+                //	System.out.println("Prevented a dispenser from spitting out a chest");
+                e.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler
@@ -170,7 +158,7 @@ public class Listener114 implements Listener {
         if (!Protections.VillagerTradeCheesing.isEnabled())
             return;
         if (e.getInventory() instanceof MerchantInventory) {
-        	
+
             MerchantInventory mi = (MerchantInventory) e.getInventory();
             if (mi.getHolder() instanceof WanderingTrader)
                 return;
@@ -278,7 +266,7 @@ public class Listener114 implements Listener {
                     e.getPlayer().getInventory().setItem(slot, food);
                 }
             }.runTaskLater(IllegalStack.getPlugin(), 3);
-                    }
+        }
     }
 
     @EventHandler
@@ -301,6 +289,6 @@ public class Listener114 implements Listener {
         fTimer.trackBlock((FallingBlock) e.getEntity());
 
     }
-    
-    
+
+
 }
